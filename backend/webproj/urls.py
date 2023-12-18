@@ -17,9 +17,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from app import views
+
 from django.urls import path, include
+from app.views import create_ingredient, ingredient_detail, ingredientes
 
 urlpatterns = [
+
     path('admin/', admin.site.urls),
+    path('ingredientes/', views.ingredientes),
+    path('criarIngrediente/', views.create_ingredient),
+    path('ingredientes/<int:id>', views.ingredient_detail),
+
     path('', include('app.urls')),
+    
 ]

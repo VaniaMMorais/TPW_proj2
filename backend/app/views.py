@@ -40,40 +40,43 @@ from unidecode import unidecode
 import re
 import base64
 
+
 #################################################### INGREDIENTES ####################################################
 
 @api_view(['POST'])
 def create_ingredient(request):
-    if request.method == 'POST':
-        serializer = IngredienteSerializer(data=request.data)
+    serializer = IngredienteSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+@api_view(['GET'])
+def ingredientes(request):
+    ingrediente = Ingrediente.objects.all()
+    serializer = IngredienteSerializer(ingrediente, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def ingredient_detail(request, id):
+
+    try:
+        ingredient = Ingrediente.objects.get(pk=id)
+    except Ingrediente.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    if request.method == 'GET':
+        serializer = IngredienteSerializer(ingredient)
+        return Response(serializer.data)
+    
+    elif request.method == 'PUT':
+        serializer = IngredienteSerializer(ingredient, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-@api_view(['PUT'])
-def update_ingredient(request, ing_id):
-    ingrediente = get_object_or_404(Ingrediente, id=ing_id)
-
-    if request.method == 'PUT':
-        serializer = IngredienteSerializer(ingrediente, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-@api_view(['DELETE'])
-def delete_ingredient(request, ing_id):
-    ingrediente = get_object_or_404(Ingrediente, id=ing_id)
-
-    if request.method == 'DELETE':
-        ingrediente.delete()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+    
+    elif request.method == 'DELETE':
+        ingredient.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-@api_view(['GET'])
-def ingredient_detail(request, ing_id):
-    ingrediente = get_object_or_404(Ingrediente, id=ing_id)
 
-    if request.method == 'GET':
-        serializer = IngredienteSerializer(ingrediente)
-        return Response(serializer.data)
