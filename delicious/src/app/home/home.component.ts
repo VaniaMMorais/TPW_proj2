@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 import { faMagnifyingGlass, faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
 import { faStar as emptyStar } from '@fortawesome/free-regular-svg-icons';
 import { AuthService } from '../auth.service';
@@ -9,7 +10,7 @@ import { AuthService } from '../auth.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent{
   solidStar = solidStar;
   emptyStar = emptyStar;
   animationState = 'fadeInUp';
@@ -17,6 +18,7 @@ export class HomeComponent {
   search= faMagnifyingGlass;
   isLoggedIn: boolean;
   isAdmin: boolean;
+  
 
   constructor(private authService: AuthService) {
     this.isLoggedIn = this.authService.getIsLoggedIn();
@@ -28,5 +30,7 @@ export class HomeComponent {
     this.isLoggedIn = false;
     this.isAdmin = false;
   }
+
+  
   
 }

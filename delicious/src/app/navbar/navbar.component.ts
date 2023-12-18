@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener } from '@angular/core';
 import { faMagnifyingGlass, faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
 import { faStar as emptyStar } from '@fortawesome/free-regular-svg-icons';
 import { AuthService } from '../auth.service';
@@ -16,8 +16,11 @@ export class NavbarComponent {
   search= faMagnifyingGlass;
   isLoggedIn: boolean;
   isAdmin: boolean;
+  isProfileDropdownOpen: boolean = false;
 
-  constructor(private authService: AuthService) {
+  
+
+  constructor(private authService: AuthService, private el: ElementRef) {
     this.isLoggedIn = this.authService.getIsLoggedIn();
     this.isAdmin = this.authService.getRole() === 'admin';
   }
@@ -27,4 +30,9 @@ export class NavbarComponent {
     this.isLoggedIn = false;
     this.isAdmin = false;
   }
+
+  toggleProfileDropdown() {
+    this.isProfileDropdownOpen = !this.isProfileDropdownOpen;
+  }
+
 }
