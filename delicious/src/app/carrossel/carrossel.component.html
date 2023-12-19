@@ -19,8 +19,8 @@
 
 <div id="carousel-container">
   <div id="slides" #slidesContainer>
-    <div class="slide" *ngFor="let slide of slides" [style.background-image]="'url(' + slide.image + ')'" [style.width.px]="slideWidth">
-      <div class="slide-content">
+    <div class="slide" *ngFor="let slide of slides; let i = index" [style.background-image]="'url(' + slide.image + ')'" [style.width.px]="slideWidth">
+      <div class="slide-content" [ngStyle]="{ display: i === currentIndex ? 'block' : 'none' }">
         <p>{{ slide.text }}</p>
       </div>
     </div>
@@ -28,6 +28,10 @@
   <button id="prev" (click)="goToPrevSlide()">&lt;</button>
   <button id="next" (click)="goToNextSlide()">&gt;</button>
 </div>
+
+
+
+
 
 
 

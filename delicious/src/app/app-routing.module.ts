@@ -6,7 +6,12 @@ import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
 import { AboutUSComponent } from './about-us/about-us.component';
 import { AdminComponent } from './admin/admin.component';
-
+import { MyFridgeComponent } from './my-fridge/my-fridge.component';
+import { MyRecipesComponent } from './my-recipes/my-recipes.component';
+import { MyShopListComponent } from './my-shop-list/my-shop-list.component';
+import { SettingsComponent } from './settings/settings.component';
+import { FavoritesComponent } from './favorites/favorites.component';
+import { RecipeDetailsComponent } from './recipe-details/recipe-details.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -14,7 +19,13 @@ const routes: Routes = [
   {path:'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path:'aboutUs', component: AboutUSComponent},
-  {path: 'admin', component: AdminComponent}
+  {path: 'admin', component: AdminComponent},
+  {path: 'myFridge', component: MyFridgeComponent},
+  {path: 'myRecipes', component: MyRecipesComponent},
+  {path: 'myShopList', component: MyShopListComponent},
+  {path: 'settings', component: SettingsComponent},
+  {path: 'favorites', component: FavoritesComponent},
+  {path: 'recipeDetails', component: RecipeDetailsComponent},
 ];
 
 @NgModule({

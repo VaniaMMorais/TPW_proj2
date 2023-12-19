@@ -17,6 +17,7 @@ export class CarrosselComponent implements OnInit, AfterViewInit {
     // Adicione mais slides conforme necessário
   ];
 
+
   constructor() {
     this.slideWidth = 0;
   }
@@ -26,9 +27,7 @@ export class CarrosselComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // Chame a função para calcular a largura do slide após a exibição da visualização
     this.calculateSlideWidth();
-    // Atualize a posição do slide após a exibição da visualização
     this.updateSlidePosition();
   }
 
@@ -40,7 +39,6 @@ export class CarrosselComponent implements OnInit, AfterViewInit {
 
   calculateSlideWidth(): void {
     if (this.slidesContainer) {
-      // Defina a largura do slide para ser igual à largura do carrossel
       this.slideWidth = this.slidesContainer.nativeElement.clientWidth;
     }
   }

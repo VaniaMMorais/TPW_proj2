@@ -16,6 +16,12 @@ import { FormsModule } from '@angular/forms';
 import { AboutUSComponent } from './about-us/about-us.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AdminComponent } from './admin/admin.component';
+import { MyRecipesComponent } from './my-recipes/my-recipes.component';
+import { MyFridgeComponent } from './my-fridge/my-fridge.component';
+import { MyShopListComponent } from './my-shop-list/my-shop-list.component';
+import { FavoritesComponent } from './favorites/favorites.component';
+import { SettingsComponent } from './settings/settings.component';
+import { RecipeDetailsComponent } from './recipe-details/recipe-details.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +33,12 @@ import { AdminComponent } from './admin/admin.component';
     AboutUSComponent,
     NavbarComponent,
     AdminComponent,
+    MyRecipesComponent,
+    MyFridgeComponent,
+    MyShopListComponent,
+    FavoritesComponent,
+    SettingsComponent,
+    RecipeDetailsComponent,
   ],
   imports: [
     BrowserModule,
