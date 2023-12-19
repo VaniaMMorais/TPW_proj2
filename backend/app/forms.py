@@ -1,6 +1,9 @@
 from django.forms import ModelForm
 from django import forms
 
+from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth.models import User
+
 from .models import Avaliacao, Categoria, Frigorifico, Ingrediente, Receita, ReceitaIngrediente
 
 class ReceitaForm(ModelForm):
@@ -79,3 +82,9 @@ class IngredienteForm(forms.ModelForm):
         model = Ingrediente
         fields = ['nome', 'categoria', 'icon', 'calorias']
 
+class UserProfileForm(UserChangeForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email', 'password')
+
+    password = forms.CharField(widget=forms.HiddenInput(), required=False)

@@ -8,8 +8,6 @@ from django.conf.urls.static import static
 
 from app.views import create_ingredient, ingredient_detail, ingredientes
 
-
-
 urlpatterns = [
     path('', views.ingredientes),
 

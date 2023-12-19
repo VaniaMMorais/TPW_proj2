@@ -20,14 +20,47 @@ from django.urls import path
 from app import views
 
 from django.urls import path, include
-from app.views import create_ingredient, ingredient_detail, ingredientes
-
+from app.views import create_ingredient, ingredient_detail, ingredientes, create_receita,receitas,receita_detail,avaliacao_detail,avaliacoes,categorias,categoria_detail,categoria_ingredientes,categoria_ingrediente_detail,receita_ingredientes,receita_ingrediente_detail, frigorificos,frigorifico_detail,favoritos,favoritos_detail,listas_compras,lista_compras_detail
+from app.views import SignUpAPIView, ActivateAccountAPIView, SignInAPIView, SignOutAPIView, UserSettingsAPIView, UserDetailAPIView
 urlpatterns = [
 
     path('admin/', admin.site.urls),
     path('ingredientes/', views.ingredientes),
     path('criarIngrediente/', views.create_ingredient),
     path('ingredientes/<int:id>', views.ingredient_detail),
+
+    path('receitas/', views.receitas),
+    path('criarReceita/', views.create_receita),
+    path('receitas/<int:id>', views.receita_detail),
+
+    path('categorias/', views.categorias),
+    path('categorias/<int:pk>/', views.categoria_detail),
+
+    path('categoria-ingredientes/', views.categoria_ingredientes),
+    path('categoria-ingredientes/<int:pk>/', views.categoria_ingrediente_detail),
+
+    path('receita_ingredientes/', views.receita_ingredientes),
+    path('receita_ingredientes/<int:pk>/', views.receita_ingrediente_detail),
+
+    path('avaliacoes/', avaliacoes),
+    path('avaliacoes/<int:pk>/', avaliacao_detail),
+
+    path('frigorificos/', frigorificos),
+    path('frigorificos/<int:pk>/', frigorifico_detail),
+
+    path('favoritos/', favoritos),
+    path('favoritos/<int:pk>/', favoritos_detail),
+
+    path('listas_compras/', listas_compras),
+    path('listas_compras/<int:pk>/', lista_compras_detail),
+
+    # AINDA NAO ESTÀ BEM!
+    path('signup/', SignUpAPIView.as_view(), name='signup'),
+    path('activate/<str:uidb64>/<str:token>/', ActivateAccountAPIView.as_view(), name='activate'), #isto se calhar não é preciso
+    path('signin/', SignInAPIView.as_view(), name='signin'),
+    path('signout/', SignOutAPIView, name='signout'),
+    path('user-detail/', UserDetailAPIView, name='user-detail'),
+    path('user-settings/', UserSettingsAPIView, name='user-settings'),
 
     path('', include('app.urls')),
     

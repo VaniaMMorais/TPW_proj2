@@ -1,0 +1,21 @@
+<app-navbar></app-navbar>
+<section class="admin">
+    <div *ngIf="dataFromApi">
+        <h3 class="text-2xl font-bold mb-4">Ingredient List from API:</h3>
+        <ul class="list-disc pl-5">
+            <li *ngFor="let food of dataFromApi" class="mb-2">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <span class="font-semibold">{{ food.nome }}</span>
+                        <span class="text-gray-500 ml-2">({{ food.calorias }} cal)</span>
+                    </div>
+                    <div>
+                        <span class="text-green-500">Category: {{ food.categoria || 'Uncategorized' }}</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
+
+
