@@ -6,13 +6,24 @@ import { MyApiService } from '../my-api.service';
   styleUrl: './admin.component.css'
 })
 export class AdminComponent implements OnInit {
-  dataFromApi: any;
+  ingredients: any;
+  categories: any;
 
   constructor(private myApiService: MyApiService){}
   ngOnInit(): void {
-    this.myApiService.getData().subscribe(
+    this.myApiService.getIngredientsData().subscribe(
       (data: any) => {
-        this.dataFromApi = data;
+        this.ingredients = data;
+        console.log(data);
+      },
+      (error: any) => {
+        console.error('Error fetching data:', error);
+      }
+    );
+
+    this.myApiService.getCategoriesData().subscribe(
+      (data: any) => {
+        this.categories = data;
         console.log(data);
       },
       (error: any) => {
