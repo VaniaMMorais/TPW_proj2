@@ -37,14 +37,22 @@
         </div>
         
         <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <div class="relative">
-              <fa-icon [icon]="search"></fa-icon>
-              <input type="search" class="form-input rounded-md pl-10 bg-green-100" placeholder="Search">
-              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <i class="far fa-search text-gray-600"></i>
-              </div>
-             </div>
+          <div class="relative">
+            <fa-icon [icon]="search"></fa-icon>
+            <input
+              type="search"
+              class="form-input rounded-md pl-10 bg-green-100"
+              placeholder="Search"
+              #searchInput
+              (keyup.enter)="searchRecipes(searchInput.value)"
+            />
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <i class="far fa-search text-gray-600" (click)="searchRecipes(searchInput.value)"></i>
+            </div>
           </div>
         </div>
+        
       </div>
+    </div> <!-- Adicione esta linha para fechar a tag div -->
+    
 </nav>

@@ -11,9 +11,9 @@ export class CarrosselComponent implements OnInit, AfterViewInit {
   currentIndex = 0;
   slideWidth: number;
   slides = [
-    {image: '../../assets/bg1.jpg', text: 'FUNCIONA??'},
-    {image: '../../assets/bg6.jpg', text: 'Nop'},
-    {image: '../../assets/bg7.jpg', text: 'Sim'},
+    {image: '../../assets/bg1.jpg', text: 'SLIDE 1'},
+    {image: '../../assets/bg6.jpg', text: 'SLIDE 2'},
+    {image: '../../assets/bg7.jpg', text: 'SLIDE 3'},
     // Adicione mais slides conforme necessário
   ];
 

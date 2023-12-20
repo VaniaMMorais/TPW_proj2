@@ -9,13 +9,26 @@ class CategoriaIngredienteSerializer(serializers.ModelSerializer):
         model = CategoriaIngrediente
         fields = '__all__'
 
-class IngredienteSerializer(serializers.ModelSerializer):
+# class IngredienteSerializer(serializers.ModelSerializer):
 
-    categoria = CategoriaIngredienteSerializer()
+#     categoria = CategoriaIngredienteSerializer()
     
+#     class Meta:
+#         model = Ingrediente
+#         fields = ('nome', 'categoria','icon', 'calorias')
+class IngredienteSerializer(serializers.ModelSerializer):
+    categoria = CategoriaIngredienteSerializer()
+
     class Meta:
         model = Ingrediente
-        fields = ('nome', 'categoria','icon', 'calorias')
+        fields = ('nome', 'categoria', 'icon', 'calorias')
+
+    def create(self, validated_data):
+        categoria_data = validated_data.pop('categoria')
+        categoria_instance = CategoriaIngrediente.objects.create(**categoria_data)
+
+        ingrediente_instance = Ingrediente.objects.create(categoria=categoria_instance, **validated_data)
+        return ingrediente_instance
 
 
 #################################################### RECEITAS ####################################################

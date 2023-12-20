@@ -2,19 +2,39 @@
 <section class="admin">
     <div *ngIf="ingredients">
         <h3 class="text-2xl font-bold mb-4">Ingredient List from API:</h3>
-        <ul class="list-disc pl-5"  style="padding-bottom: 2rem;">
-            <li *ngFor="let food of ingredients" class="mb-2">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <span class="font-semibold">{{ food.nome }}</span>
-                        <span class="text-gray-500 ml-2">({{ food.calorias }} cal)</span>
-                    </div>
-                    <div>
-                        <span class="text-green-500">Category: {{ food.categoria || 'Uncategorized' }}</span>
-                    </div>
-                </div>
-            </li>
+        <ul class="list-disc pl-5" style="padding-bottom: 2rem;">
+          <li *ngFor="let food of ingredients; let i = index" class="mb-2">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="font-semibold">{{ food.nome }}</span>
+                <span class="text-gray-500 ml-2">({{ food.calorias }} cal)</span>
+              </div>
+              <div>
+                <span class="text-green-500">Category: {{ food.categoria || 'Uncategorized' }}</span>
+                <button class="text-red-500" (click)="deleteIngredient(i+1)">Delete</button>
+              </div>
+            </div>
+          </li>
         </ul>
+
+
+        <div class="p-4">
+            <label for="nome" class="block mb-2">Nome:</label>
+            <input type="text" id="nome" [(ngModel)]="ingredientData.nome" class="form-input w-full mb-4"/>
+          
+            <label for="categoria" class="block mb-2">Categoria:</label>
+            <select id="categoria" name="categoria" [(ngModel)]="ingredientData.categoria" class="form-select w-full mb-4">
+              <option *ngFor="let categoria of ingredientCategories" [ngValue]="categoria">{{ categoria.nome }}</option>
+            </select>
+          
+            <label for="calorias" class="block mb-2">Calorias:</label>
+            <input type="text" id="calorias" [(ngModel)]="ingredientData.calorias" class="form-input w-full mb-4"/>
+          
+            <button (click)="createIngredient()" class="bg-green-600 text-white py-2 px-4 rounded">Adicionar Ingrediente</button>
+        </div>
+          
+          
+
         <hr>
         <h3 class="text-2xl font-bold mb-4" >Categories List from API:</h3>
         <ul class="list-disc pl-5">
@@ -26,7 +46,14 @@
                 </div>
             </li>
         </ul>
+
         
+        <div class="p-4">
+            <label for="nome" class="block mb-2">Name:</label>
+            <input type="text" id="nome" [(ngModel)]="newCategory.name" class="form-input w-full mb-4"/>
+          
+            <button (click)="createCategory()" class="bg-green-600 text-white py-2 px-4 rounded">Adicionar Ingrediente</button>
+        </div>
     </div>
 </section>
 

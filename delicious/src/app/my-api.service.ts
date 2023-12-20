@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +31,22 @@ export class MyApiService {
 
   getRatingsData(): Observable<any>{
     return this.http.get(this.baseApiUrl + '/avaliacoes')
+  }
+  getIngredientCategoryData(): Observable<any>{
+    return this.http.get(this.baseApiUrl + '/categoria-ingredientes/')
+  }
+
+  createIngredient(ingredientData: any): Observable<any> {
+    return this.http.post(this.baseApiUrl + '/criarIngrediente/', ingredientData).pipe(
+      map((response: any) => response.id)
+    );
+  }
+
+  createCategory(categoryData: any): Observable<any> {
+    return this.http.post(this.baseApiUrl +'/categorias/', categoryData);
+  }
+
+  deleteIngredient(id: number): Observable<any>{
+    return this.http.delete(this.baseApiUrl + '/ingredientes/' + id)
   }
 }

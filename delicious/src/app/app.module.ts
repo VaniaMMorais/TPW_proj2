@@ -22,6 +22,7 @@ import { MyShopListComponent } from './my-shop-list/my-shop-list.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { SettingsComponent } from './settings/settings.component';
 import { RecipeDetailsComponent } from './recipe-details/recipe-details.component';
+import { SearchResultsComponent } from './search-results/search-results.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { RecipeDetailsComponent } from './recipe-details/recipe-details.componen
     FavoritesComponent,
     SettingsComponent,
     RecipeDetailsComponent,
+    SearchResultsComponent,
   ],
   imports: [
     BrowserModule,

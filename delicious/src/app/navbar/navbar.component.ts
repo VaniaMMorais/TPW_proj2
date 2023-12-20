@@ -2,6 +2,8 @@ import { Component, ElementRef, HostListener } from '@angular/core';
 import { faMagnifyingGlass, faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
 import { faStar as emptyStar } from '@fortawesome/free-regular-svg-icons';
 import { AuthService } from '../auth.service';
+import { MyApiService } from '../my-api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -20,7 +22,7 @@ export class NavbarComponent {
 
   
 
-  constructor(private authService: AuthService, private el: ElementRef) {
+  constructor(private authService: AuthService, private el: ElementRef,private router: Router) {
     this.isLoggedIn = this.authService.getIsLoggedIn();
     this.isAdmin = this.authService.getRole() === 'admin';
   }
@@ -33,6 +35,11 @@ export class NavbarComponent {
 
   toggleProfileDropdown() {
     this.isProfileDropdownOpen = !this.isProfileDropdownOpen;
+  }
+
+  searchRecipes(searchTerm: string): void {
+    // Navegar para a página de resultados de pesquisa com o termo de pesquisa como parâmetro de consulta
+    this.router.navigate(['/searchResults'], { queryParams: { query: searchTerm } });
   }
 
 }
