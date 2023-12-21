@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MyApiService {
-  private baseApiUrl = 'http://127.0.0.1:8000';
+  // private baseApiUrl = 'http://127.0.0.1:8000';
+  private baseApiUrl = 'http://proj2tpw.pythonanywhere.com';
   constructor(private http: HttpClient) { }
 
   getIngredientsData(): Observable<any> {
@@ -49,4 +50,18 @@ export class MyApiService {
   deleteIngredient(id: number): Observable<any>{
     return this.http.delete(this.baseApiUrl + '/ingredientes/' + id)
   }
+
+  deleteCategory(id:number): Observable<any>{
+    return this.http.delete(this.baseApiUrl + '/categorias/' + id)
+  }
+
+  login(header: any): Observable<any> {
+    const url = this.baseApiUrl+'/api-auth/login/';
+    return this.http.post(url, header);
+  }
+
+  getUser(): Observable<any> {
+    return this.http.get(this.baseApiUrl + '/accounts/profile/');
+  }
+
 }

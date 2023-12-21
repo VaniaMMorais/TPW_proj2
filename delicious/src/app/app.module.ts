@@ -1,6 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -48,7 +48,11 @@ import { SearchResultsComponent } from './search-results/search-results.componen
     FontAwesomeModule,
     RouterModule.forRoot([]),
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+  //   HttpClientXsrfModule.withOptions({
+  //     cookieName: 'csrftoken',
+  //     headerName: 'X-CSRFToken',
+  // }),
   ],
   providers: [],
   bootstrap: [AppComponent],
