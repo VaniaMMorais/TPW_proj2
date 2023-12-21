@@ -4,6 +4,9 @@ from rest_framework import status
 from rest_framework.parsers import JSONParser,MultiPartParser, FormParser
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.views import APIView
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 # from rest_framework_jwt.settings import api_settings
 from rest_framework_simplejwt import views as jwt_views
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -40,6 +43,7 @@ from django.db.models import Count
 from unidecode import unidecode
 import re
 import base64
+
 
 #utilizadores
 from django.contrib.auth import login, authenticate, logout
@@ -409,55 +413,11 @@ def lista_compras_detail(request, pk):
 
 
 #################################################### UTILIZADORES ####################################################
-    
-@method_decorator(csrf_protect, name='dispatch')
-class SignUpAPIView(APIView):
-    def post(self, request, *args, **kwargs):
-        # O código do seu método signup aqui...
-        return JsonResponse({'message': 'User created successfully.'}, status=status.HTTP_201_CREATED)
+class ProfileView(APIView):
 
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def UserDetailAPIView(request):
-    serializer = UserSerializer(request.user)
-    return Response(serializer.data)
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    permission_classes = [IsAuthenticated]
 
-@method_decorator(csrf_protect, name='dispatch')
-class ActivateAccountAPIView(APIView):
-    def get(self, request, uidb64, token):
-        # O código do seu método activate aqui...
-        return JsonResponse({'message': 'Account activated successfully.'}, status=status.HTTP_200_OK)
-
-@method_decorator(csrf_protect, name='dispatch')
-class SignInAPIView(APIView):
-    def post(self, request, *args, **kwargs):
-        # O código do seu método signin aqui...
-        return JsonResponse({'message': 'Login successful.'}, status=status.HTTP_200_OK)
-
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def SignOutAPIView(request):
-    logout(request)
-    return JsonResponse({'message': 'Logout successful.'}, status=status.HTTP_200_OK)
-
-@api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticated])
-def UserSettingsAPIView(request):
-    user = request.user
-
-    if request.method == 'POST':
-        form = UserProfileForm(request.POST, instance=user)
-
-        if form.is_valid():
-            old_password = form.cleaned_data.get('password')
-            if old_password and not user.check_password(old_password):
-                return Response({'error': 'Old password is incorrect.'}, status=status.HTTP_400_BAD_REQUEST)
-            else:
-                form.save()
-                return Response({'message': 'Profile updated successfully.'}, status=status.HTTP_200_OK)
-        else:
-            return Response({'error': 'Error updating profile. Please correct the errors.'}, status=status.HTTP_400_BAD_REQUEST)
-
-    else:
-        form = UserProfileForm(instance=user)
-        return Response({'form': UserSerializer(form).data}, status=status.HTTP_200_OK)
+    def get(self, request, format=None):
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)
