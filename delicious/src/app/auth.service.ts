@@ -10,8 +10,8 @@ import { Observable } from 'rxjs';
 export class AuthService {
   private isLoggedIn = false;
   private role: string | null = null;
-  private apiUrl = 'http://127.0.0.1:8000/api-auth/login/';
-
+  // private apiUrl = 'http://127.0.0.1:8000/api-auth/login/';
+  private apiUrl = 'http://proj2tpw.pythonanywhere.com/api-auth/login/';
   constructor(private myApiService: MyApiService, private http: HttpClient) {}
 
   // 

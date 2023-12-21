@@ -6,7 +6,8 @@ import { Observable, map } from 'rxjs';
   providedIn: 'root'
 })
 export class MyApiService {
-  private baseApiUrl = 'http://127.0.0.1:8000';
+  // private baseApiUrl = 'http://127.0.0.1:8000';
+  private baseApiUrl = 'http://proj2tpw.pythonanywhere.com';
   constructor(private http: HttpClient) { }
 
   getIngredientsData(): Observable<any> {
