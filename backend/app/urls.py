@@ -7,7 +7,6 @@ from django.conf.urls.static import static
 
 from rest_framework.urlpatterns import format_suffix_patterns
 
-
 from app.views import create_ingredient, ingredient_detail, ingredientes
 
 urlpatterns = [
