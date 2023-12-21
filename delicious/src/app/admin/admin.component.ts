@@ -111,6 +111,16 @@ export class AdminComponent implements OnInit {
       }
     );
   }
+
+  deleteCategory(categoryId: number): void {
+    // Adicione a lógica de exclusão aqui, usando o ID do ingrediente
+    this.myApiService.deleteCategory(categoryId).subscribe(
+      (response)=> {
+        console.log('Categoria eliminada com sucesso')
+        this.reloadPage();
+      }
+    );
+  }
   
   reloadPage() {
     // Recarregar a página

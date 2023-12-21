@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit{
   isAdmin: boolean;
 
   recipes: any;
+  user: any;
   
 
   constructor(private authService: AuthService, private myApiService: MyApiService, private router: Router) {
@@ -41,7 +42,19 @@ export class HomeComponent implements OnInit{
       }
     );
 
-    }
+    // if(this.isLoggedIn){
+    //   this.myApiService.getUser().subscribe(
+    //     (data: any) => {
+    //       this.user = data;
+    //       console.log(data);
+    //     },
+    //     (error: any) => {
+    //       console.error('Error fetching user:', error);
+    //     }
+    //   );
+    // }
+
+  }
 
   onLogout() {
     this.authService.logout();

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 
 @Injectable({
@@ -49,4 +49,18 @@ export class MyApiService {
   deleteIngredient(id: number): Observable<any>{
     return this.http.delete(this.baseApiUrl + '/ingredientes/' + id)
   }
+
+  deleteCategory(id:number): Observable<any>{
+    return this.http.delete(this.baseApiUrl + '/categorias/' + id)
+  }
+
+  login(header: any): Observable<any> {
+    const url = this.baseApiUrl+'/api-auth/login/';
+    return this.http.post(url, header);
+  }
+
+  getUser(): Observable<any> {
+    return this.http.get(this.baseApiUrl + '/accounts/profile/');
+  }
+
 }
