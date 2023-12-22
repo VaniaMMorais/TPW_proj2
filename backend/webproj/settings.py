@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'corsheaders', 
     'rest_framework',
     'rest_framework_simplejwt',
+    'rest_framework.authtoken',
 
     # dar conhecimento ao django da nossa app
     'app.apps.AppConfig',
@@ -143,9 +144,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.AllowAny'
     ],
     "DEFAULT_AUTHENTICATION_CLASSES": [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ],
 }

@@ -12,6 +12,7 @@ from app.views import create_ingredient, ingredient_detail, ingredientes
 urlpatterns = [
     path('', views.ingredientes),
     path('profile/', views.ProfileView.as_view()),
+    path('api/auth/', views.CustomAuthToken.as_view()),
 
 ]
 
