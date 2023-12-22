@@ -21,7 +21,7 @@ class IngredienteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Ingrediente
-        fields = ('nome', 'categoria', 'icon', 'calorias')
+        fields = ('id','nome', 'categoria', 'icon', 'calorias')
 
     def create(self, validated_data):
         categoria_data = validated_data.pop('categoria')
@@ -29,6 +29,24 @@ class IngredienteSerializer(serializers.ModelSerializer):
 
         ingrediente_instance = Ingrediente.objects.create(categoria=categoria_instance, **validated_data)
         return ingrediente_instance
+    
+    def update(self, instance, validated_data):
+        categoria_data = validated_data.pop('categoria', None)
+        
+        instance.nome = validated_data.get('nome', instance.nome)
+        instance.icon = validated_data.get('icon', instance.icon)
+        instance.calorias = validated_data.get('calorias', instance.calorias)
+
+        # Atualiza a categoria, se fornecida
+        if categoria_data:
+            categoria_serializer = CategoriaIngredienteSerializer(instance.categoria, data=categoria_data)
+            if categoria_serializer.is_valid():
+                categoria_serializer.save()
+            else:
+                raise serializers.ValidationError(categoria_serializer.errors)
+
+        instance.save()
+        return instance
 
 
 #################################################### RECEITAS ####################################################

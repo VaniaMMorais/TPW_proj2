@@ -79,41 +79,53 @@ from django.db.models import Avg
 
 #################################################### INGREDIENTES ####################################################
 
-@api_view(['GET', 'POST'])
-def categoria_ingredientes(request):
+@api_view(['GET'])
+def all_categoria_ingredientes(request):
     if request.method == 'GET':
         categoria_ingredientes = CategoriaIngrediente.objects.all()
         serializer = CategoriaIngredienteSerializer(categoria_ingredientes, many=True)
         return Response(serializer.data)
 
-    elif request.method == 'POST':
+@api_view(['POST'])
+def create_categoria_ingrediente(request):
         serializer = CategoriaIngredienteSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET', 'PUT', 'DELETE'])
+@api_view(['GET'])
 def categoria_ingrediente_detail(request, pk):
     try:
         categoria_ingrediente = CategoriaIngrediente.objects.get(pk=pk)
     except CategoriaIngrediente.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    if request.method == 'GET':
-        serializer = CategoriaIngredienteSerializer(categoria_ingrediente)
+    serializer = CategoriaIngredienteSerializer(categoria_ingrediente)
+    return Response(serializer.data)
+
+@api_view(['PUT'])
+def edit_categoria_ingrediente(request, pk):
+    try:
+        categoria_ingrediente = CategoriaIngrediente.objects.get(pk=pk)
+    except CategoriaIngrediente.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = CategoriaIngredienteSerializer(categoria_ingrediente, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
         return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'PUT':
-        serializer = CategoriaIngredienteSerializer(categoria_ingrediente, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+@api_view(['DELETE'])
+def delete_categoria_ingrediente(request, pk):
+    try:
+        categoria_ingrediente = CategoriaIngrediente.objects.get(pk=pk)
+    except CategoriaIngrediente.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
-    elif request.method == 'DELETE':
-        categoria_ingrediente.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+    categoria_ingrediente.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(['POST'])
@@ -123,34 +135,45 @@ def create_ingredient(request):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 @api_view(['GET'])
 def ingredientes(request):
     ingrediente = Ingrediente.objects.all()
     serializer = IngredienteSerializer(ingrediente, many=True)
     return Response(serializer.data)
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def ingredient_detail(request, id):
-
+@api_view(['GET'])
+def get_ingredient_detail(request, id):
     try:
         ingredient = Ingrediente.objects.get(pk=id)
     except Ingrediente.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
-    
-    if request.method == 'GET':
-        serializer = IngredienteSerializer(ingredient)
+
+    serializer = IngredienteSerializer(ingredient)
+    return Response(serializer.data)
+
+@api_view(['PUT'])
+def update_ingredient(request, id):
+    try:
+        ingredient = Ingrediente.objects.get(pk=id)
+    except Ingrediente.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = IngredienteSerializer(ingredient, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
         return Response(serializer.data)
-    
-    elif request.method == 'PUT':
-        serializer = IngredienteSerializer(ingredient, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors)
-    
-    elif request.method == 'DELETE':
-        ingredient.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+    return Response(serializer.errors)
+
+@api_view(['DELETE'])
+def delete_ingredient(request, id):
+    try:
+        ingredient = Ingrediente.objects.get(pk=id)
+    except Ingrediente.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    ingredient.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
 
 #################################################### RECEITAS ####################################################
 

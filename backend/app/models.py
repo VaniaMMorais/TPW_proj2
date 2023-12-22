@@ -18,6 +18,7 @@ class CategoriaIngrediente(models.Model):
     
 class Ingrediente(models.Model):
 
+    id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=255)
     categoria = models.ForeignKey(CategoriaIngrediente, on_delete=models.SET_NULL, null=True)
     icon = models.CharField(max_length=255,null=True, blank=True)
