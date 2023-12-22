@@ -69,6 +69,12 @@ from .forms import UserProfileForm
 
 from .serializers import UserSerializer
 
+# filtrar receitas
+from django.shortcuts import get_object_or_404
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status, generics
+from django.db.models import Avg
 
 
 #################################################### INGREDIENTES ####################################################
@@ -222,6 +228,24 @@ def receita_detail(request, id):
         receita.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
+class ReceitaFilterAPIView(generics.ListAPIView):
+
+    serializer_class = ReceitaSerializer
+
+    def get_queryset(self):
+        nome = self.request.query_params.get('name')
+        cat = self.request.query_params.get('cat')
+
+        queryset = Receita.objects.all()
+
+        if cat:
+            queryset = queryset.filter(category__name=cat).annotate(media_avaliacoes=Avg('avaliacao__clasificacao'))
+
+        if nome:
+            queryset = queryset.filter(name__icontains=nome).annotate(media_avaliacoes=Avg('avaliacao__clasificacao'))
+
+        return queryset
 
 ################################## ASSOCIAÇÃO: RECEITA/INGREDIENTE ##############################################
 
