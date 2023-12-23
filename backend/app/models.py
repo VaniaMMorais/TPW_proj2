@@ -11,6 +11,7 @@ from django.conf.urls.static import static
 
 class CategoriaIngrediente(models.Model):
     
+    id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=200)
 
     def __str__(self):
@@ -32,6 +33,7 @@ class Ingrediente(models.Model):
     
 class Categoria(models.Model):
 
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200)
 
     def __str__(self):
@@ -39,6 +41,7 @@ class Categoria(models.Model):
     
 class Receita(models.Model):
 
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=200)
@@ -92,6 +95,7 @@ class ReceitaIngrediente(models.Model):
 
 class Avaliacao(models.Model):
     
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     receita = models.ForeignKey(Receita, on_delete=models.CASCADE) # quando o pai é eliminado, os filhos tb são
     descricao = models.TextField()
@@ -108,6 +112,7 @@ class Avaliacao(models.Model):
     
 class Frigorifico(models.Model):
 
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     ingredient = models.ForeignKey(Ingrediente, on_delete=models.CASCADE)
     data = models.DateField()
@@ -123,6 +128,7 @@ class Frigorifico(models.Model):
     
 class Favoritos(models.Model):
 
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     receita = models.ForeignKey(Receita, on_delete=models.CASCADE)
     updated = models.DateTimeField(auto_now=True)
@@ -137,6 +143,7 @@ class Favoritos(models.Model):
     
 class ListaCompras(models.Model):
 
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     ingredient = models.ForeignKey(Ingrediente, on_delete=models.CASCADE)
     data = models.DateField()
