@@ -11,9 +11,9 @@ export class CarrosselComponent implements OnInit, AfterViewInit {
   currentIndex = 0;
   slideWidth: number;
   slides = [
-    {image: '../../assets/bg1.jpg', text: 'SLIDE 1'},
-    {image: '../../assets/bg6.jpg', text: 'SLIDE 2'},
-    {image: '../../assets/bg7.jpg', text: 'SLIDE 3'},
+    {image: '../../assets/bg1.jpg', text: 'Explore a variety of delicious recipes available. From main dishes to incredible desserts, discover new flavors, get inspired and start cooking your own gastronomic creations.'},
+    {image: '../../assets/bg6.jpg', text: 'Be a chef in your own kitchen! Add your special creations, describe the ingredients and preparation steps, and inspire others to try your delicious recipes.'},
+    {image: '../../assets/bg7.jpg', text: 'Open the virtual doors of your personal refrigerator. You can add, remove, and update items as needed, ensuring you are always ready to create your favorite recipes.'},
     // Adicione mais slides conforme necessário
   ];
 

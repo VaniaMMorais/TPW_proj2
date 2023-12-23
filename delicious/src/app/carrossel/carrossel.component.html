@@ -1,40 +1,12 @@
-<!-- <div class="carrossel">
-    <div class="item"
-         [style.backgroundImage]="'url(' + imagens[indexImagemAtiva] + ')'"
-         [class.ativo]="i === indexImagemAtiva"
-         *ngFor="let imagem of imagens; index as i"
-         (click)="pararTimer(); ativarImagem(i)">
-    </div>
-   
-    <div class="botoes-controle">
-      <button *ngFor="let imagem of imagens; index as i"
-              [class.ativo]="i === indexImagemAtiva"
-              (click)="pararTimer(); ativarImagem(i)"></button>
-    </div>
-</div>
- -->
-
-<!-- This is an example component -->
-
-
 <div id="carousel-container">
   <div id="slides" #slidesContainer>
-    <div class="slide" *ngFor="let slide of slides; let i = index" [style.background-image]="'url(' + slide.image + ')'" [style.width.px]="slideWidth">
-      <div class="slide-content" [ngStyle]="{ display: i === currentIndex ? 'block' : 'none' }">
+    <div class="slide" *ngFor="let slide of slides; let i = index" [style.width.px]="slideWidth">
+      <div class="slide-content">
+        <img [src]="slide.image" alt="{{ slide.text }}" class="background-image">
         <p>{{ slide.text }}</p>
       </div>
     </div>
   </div>
-  <button id="prev" (click)="goToPrevSlide()">&lt;</button>
-  <button id="next" (click)="goToNextSlide()">&gt;</button>
+  <button id="prev" (click)="goToPrevSlide()">&#10094;</button>
+  <button id="next" (click)="goToNextSlide()">&#10095;</button>
 </div>
-
-
-
-
-
-
-
-
-
-
