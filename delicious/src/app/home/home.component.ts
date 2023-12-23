@@ -13,8 +13,6 @@ import { AuthService } from '../auth.service';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit{
-  solidStar = solidStar;
-  emptyStar = emptyStar;
   animationState = 'fadeInUp';
   animationDelays = ['100ms', '300ms', '700ms', '1000ms'];
   search= faMagnifyingGlass;
@@ -60,11 +58,6 @@ export class HomeComponent implements OnInit{
     this.authService.logout();
     this.isLoggedIn = false;
     this.isAdmin = false;
-  }
-
-  navigateToRecipeDetails(recipeId: number): void {
-    // Navegue para a rota '/recipeDetails' com o ID da receita como parâmetro
-    this.router.navigate(['/recipeDetails', recipeId]);
   }
 
   
