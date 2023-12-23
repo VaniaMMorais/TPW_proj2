@@ -25,7 +25,6 @@ import { RecipeDetailsComponent } from './recipe-details/recipe-details.componen
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RecipeCardComponent } from './recipe-card/recipe-card.component';
-import { initializeApp } from 'firebase/app';
 
 
 @NgModule({

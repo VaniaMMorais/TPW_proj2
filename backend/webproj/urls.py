@@ -29,14 +29,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
 
-    # ingredientes (tudo funcional no postman)
     path('ingredientes/', views.ingredientes),
     path('criarIngrediente/', views.create_ingredient),
     path('ingredientes/<int:id>', views.get_ingredient_detail),
     path('update_ingrediente/<int:id>', views.update_ingredient),
     path('delete_ingrediente/<int:id>', views.delete_ingredient),
 
-    # receitas (só nao funciona criar e update  no postman pq no admin funcionam todos)
     path('receitas/', views.receitas),
     path('criarReceita/', views.create_receita),
     path('detail_receita/<int:id>', views.receita_detail),
@@ -44,14 +42,12 @@ urlpatterns = [
     path('delete_receita/<int:id>', views.delete_receita),
     path('receitas_filtradas/', views.filtrar_receitas),
 
-    # categorias das receitas
     path('categorias/', views.categorias),
     path('criarCategoria/', views.create_categoria),
     path('categorias/<int:pk>/', views.categoria_detail),
     path('categorias/<int:pk>/', views.edit_categoria),
     path('categorias/<int:pk>/', views.delete_categoria),
 
-    # categorias dos ingredientes
     path('categoria-ingredientes/', views.all_categoria_ingredientes),
     path('create_categoria_ingrediente/', views.create_categoria_ingrediente),
     path('categoria-ingredientes/<int:pk>/', views.categoria_ingrediente_detail),
@@ -65,14 +61,12 @@ urlpatterns = [
     path('update_receita_ingredientes/<int:pk>/', views.update_receita_ingredientes),
     path('delete_receita_ingredientes/<int:pk>/', views.delete_receita_ingredientes),
 
-    # FUNCIONAM CORRETAMENTE (testei no postman)
     path('avaliacoes/', views.avaliacoes),
     path('criarAvaliacao/', views.create_avaliacoes),
     path('detail_avaliacoes/<int:pk>/', views.avaliacao_detail),
     path('update_avaliacoes/<int:pk>/', views.update_avaliacao),
     path('remove_avaliacoes/<int:pk>/', views.delete_avaliacao),
-    
-    # FUNCIONAM CORRETAMENTE (testei no postman)
+
     path('frigorificos/', views.frigorificos),
     path('add_frigorifico/', views.create_frigorifico),
     path('detail_frigorifico/<int:pk>/', views.frigorifico_detail),
