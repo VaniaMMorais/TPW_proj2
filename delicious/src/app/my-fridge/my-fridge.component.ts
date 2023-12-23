@@ -17,6 +17,7 @@ export class MyFridgeComponent implements OnInit{
     const currentUser = this.authService.getCurrentUser();
       this.myApiService.getFridgeData().subscribe(
         (data:any)=> {
+          this.fridgeItems = data.map((item: any, index: number) => ({ id: index + 1, ...item }));
           this.fridgeItems = data.filter((item: { user: any; }) => item.user === currentUser.user_id);
           this.fridgeItems.forEach((item: { ingredient: any; }) => {
             console.log(item.ingredient)
