@@ -69,7 +69,7 @@ class ReceitaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Receita
-        fields = ('user', 'category', 'name', 'description', 'tempoPreparacao', 'tempoCozinhar', 'quantidadePessoas', 'nivel', 'imagem', 'ingredients', 'updated', 'created')
+        fields = ('id','user', 'category', 'name', 'description', 'tempoPreparacao', 'tempoCozinhar', 'quantidadePessoas', 'nivel', 'imagem', 'ingredients', 'updated', 'created')
 
     def create(self, validated_data):
         category_data = validated_data.pop('category')
@@ -92,7 +92,7 @@ class ReceitaSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         category_data = validated_data.pop('category', None)
         ingredients_data = validated_data.pop('ingredients', None)
-
+        
         instance.name = validated_data.get('name', instance.name)
         instance.description = validated_data.get('description', instance.description)
         instance.tempoPreparacao = validated_data.get('tempoPreparacao', instance.tempoPreparacao)
@@ -176,7 +176,7 @@ class ReceitaSerializer(serializers.ModelSerializer):
 class AvaliacaoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Avaliacao
-        fields = ('user', 'receita', 'descricao', 'clasificacao', 'data', 'updated', 'created')
+        fields = ('id','user', 'receita', 'descricao', 'clasificacao', 'data', 'updated', 'created')
 
 
 ################################## FRIGORÍFICO ##############################################
@@ -185,7 +185,7 @@ class FrigorificoSerializer(serializers.ModelSerializer):
     class Meta:
 
         model = Frigorifico
-        fields = ('user', 'ingredient', 'data', 'checklist', 'updated', 'created')
+        fields = ('id','user', 'ingredient', 'data', 'checklist', 'updated', 'created')
 
 
 
@@ -195,7 +195,7 @@ class FavoritosSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Favoritos
-        fields = ('user', 'receita', 'updated', 'created')
+        fields = ('id','user', 'receita', 'updated', 'created')
 
 ################################## LISTA DE COMPRAS ##############################################
 
@@ -203,7 +203,7 @@ class ListaComprasSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ListaCompras
-        fields = ('user', 'ingredient', 'data', 'checklist')
+        fields = ('id','user', 'ingredient', 'data', 'checklist')
 
 ################################## USER ##############################################
 
