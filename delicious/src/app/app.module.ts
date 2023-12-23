@@ -28,17 +28,6 @@ import { RecipeCardComponent } from './recipe-card/recipe-card.component';
 import { initializeApp } from 'firebase/app';
 
 
-const firebaseConfig = {
-  apiKey: "AIzaSyC_G8JZKlOmwvewLisK8GJ7Ste4nZNQBfk",
-  authDomain: "delicious-food-blog.firebaseapp.com",
-  projectId: "delicious-food-blog",
-  storageBucket: "delicious-food-blog.appspot.com",
-  messagingSenderId: "566081736003",
-  appId: "1:566081736003:web:678dd8e94d29465956b3f6"
-};
-
-const app = initializeApp(firebaseConfig);
-
 @NgModule({
   declarations: [
     AppComponent,

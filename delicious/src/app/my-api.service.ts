@@ -51,6 +51,10 @@ export class MyApiService {
     return this.http.post(this.baseApiUrl +'/criarCategoria/', categoryData);
   }
 
+  createFridge(fridgeData: any): Observable<any>{
+    return this.http.post(this.baseApiUrl+ '/add_frigorifico/', fridgeData)
+  }
+
   deleteIngredient(id: number): Observable<any>{
     return this.http.delete(this.baseApiUrl + '/delete_ingrediente/' + id)
   }

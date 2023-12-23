@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MyApiService } from '../my-api.service';
 import { AuthService } from '../auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-my-fridge',
@@ -10,8 +11,20 @@ import { AuthService } from '../auth.service';
 export class MyFridgeComponent implements OnInit{
   fridgeItems: any;
   ingredient: any;
+  myForm: FormGroup;
+  ingredientes: any[] | undefined;
 
-  constructor(private authService: AuthService, private myApiService: MyApiService){}
+  constructor(private fb: FormBuilder,private authService: AuthService, private myApiService: MyApiService){
+    const currentUser = this.authService.getCurrentUser();
+    this.myForm= this.fb.group({
+      user:[currentUser.user_id],
+      ingredient: [Validators.required],
+      data:['2023-12-23'],
+      checklist: [false]
+    })
+
+    this.fetchIngredientes();
+  }
 
   ngOnInit(): void {
     const currentUser = this.authService.getCurrentUser();
@@ -44,6 +57,18 @@ export class MyFridgeComponent implements OnInit{
       );
   }
 
+  fetchIngredientes() {
+    // Busque a lista de ingredientes da API
+    this.myApiService.getIngredientsData().subscribe(
+      (data) => {
+        this.ingredientes = data;
+      },
+      (error) => {
+        console.error('Erro ao buscar ingredientes:', error);
+      }
+    );
+  }
+
   getIngredient(item: any): void {
     this.myApiService.getIngredientsById(item.ingredient).subscribe(
       (ingredientDetails: any) => {
@@ -55,4 +80,22 @@ export class MyFridgeComponent implements OnInit{
       }
     );
   }
+
+  onSubmit() {
+    if (this.myForm.valid) {
+
+      // Apenas envie se o formulário for válido
+      this.myApiService.createFridge(this.myForm.value).subscribe(
+        (response) => {
+          console.log('Frigorífico criado com sucesso:', response);
+          // Atualize localmente a lista ou faça outra ação, se necessário
+          location.reload()
+        },
+        (error) => {
+          console.error('Erro ao criar frigorífico:', error);
+        }
+      );
+    }
+  }
+
 }
