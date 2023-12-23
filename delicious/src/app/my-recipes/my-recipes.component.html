@@ -8,6 +8,9 @@
             <div *ngFor="let recipe of recipes" class="group relative">
                 <app-recipe-card [recipe]="recipe" [recipeId]="recipe.id"></app-recipe-card>
             </div>
+            <button (click)="openAddRecipeModal()" class="group relative bg-green-500 text-white p-4 rounded-md hover:bg-green-600">
+                Adicionar Receita
+            </button>
         </div>
     </div>
 </div>

@@ -5,6 +5,7 @@ import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
 import { importProvidersFrom } from '@angular/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 
 platformBrowserDynamic().bootstrapModule(AppModule)
@@ -12,12 +13,10 @@ platformBrowserDynamic().bootstrapModule(AppModule)
 bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom(HttpClientModule),
-    importProvidersFrom(
-      HttpClientXsrfModule.withOptions({
-        cookieName: 'My-Xsrf-Cookie', // Nome personalizado para o cookie
+    importProvidersFrom(HttpClientXsrfModule.withOptions({
+        cookieName: 'My-Xsrf-Cookie',
         headerName: 'My-Xsrf-Header', // Nome personalizado para o cabeçalho
-      })
-    ),
-    // ... outros provedores ...
-  ]
+    })),
+    provideAnimations()
+]
 });

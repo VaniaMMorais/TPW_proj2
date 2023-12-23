@@ -5,6 +5,7 @@ import { MyApiService } from '../my-api.service';
 import { faMagnifyingGlass, faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
 import { faStar as emptyStar } from '@fortawesome/free-regular-svg-icons';
 import { AuthService } from '../auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-recipe-details',
@@ -18,12 +19,14 @@ export class RecipeDetailsComponent {
   isLoggedIn: boolean;
   isAdmin: boolean;
   isCreator: boolean | undefined;
+  myForm: FormGroup | undefined;
 
   solidStar = solidStar;
   emptyStar = emptyStar;
-  constructor(private route: ActivatedRoute, private myApiService: MyApiService, private authService: AuthService, private router: Router ){
+  constructor(private route: ActivatedRoute, private myApiService: MyApiService, private authService: AuthService, private router: Router, private fb: FormBuilder ){
     this.isLoggedIn = this.authService.getIsLoggedIn();
     this.isAdmin = this.authService.getRole() === 'admin';
+    
   }
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -64,5 +67,28 @@ export class RecipeDetailsComponent {
         this.router.navigate(['/myRecipes'])
       }
     )
+  }
+
+  addToFavorites(id: number){
+    const currentUser = this.authService.getCurrentUser();
+    this.myForm= this.fb.group({
+      user:[currentUser.user_id],
+      receita:[id]
+    })
+
+    if (this.myForm.valid) {
+
+      // Apenas envie se o formulário for válido
+      this.myApiService.addFavorite(this.myForm.value).subscribe(
+        (response) => {
+          console.log('Adicionado aos favoritos:', response);
+          // Atualize localmente a lista ou faça outra ação, se necessário
+          location.reload()
+        },
+        (error) => {
+          console.error('Erro ao criar frigorífico:', error);
+        }
+      );
+    }
   }
 }

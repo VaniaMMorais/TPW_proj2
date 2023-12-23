@@ -10,6 +10,8 @@ npm install --save @fortawesome/free-regular-svg-icons
 npm install @tailwindcss/forms
 npm install --save-dev @types/jquery
 npm install jquery
+ng add @angular/material
+
 
 ## Como correr 
 npm start ou ng serve

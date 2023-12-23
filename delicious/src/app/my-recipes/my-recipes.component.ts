@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { MyApiService } from '../my-api.service';
 import { Router } from '@angular/router';
+import { RecipeAddService } from '../recipe-add.service';
 
 @Component({
   selector: 'app-my-recipes',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 export class MyRecipesComponent {
   recipes: any;
 
-  constructor(private authService: AuthService, private myApiService: MyApiService, private router: Router) {
+  constructor(private authService: AuthService, private myApiService: MyApiService, private router: Router,private recipeAddService: RecipeAddService) {
   }
 
   ngOnInit(): void {
@@ -27,4 +28,8 @@ export class MyRecipesComponent {
     );
 
   }
+
+  openAddRecipeModal(): void {
+    this.recipeAddService.openAddRecipeModal();
+}
 }
