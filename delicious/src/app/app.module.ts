@@ -24,6 +24,8 @@ import { SettingsComponent } from './settings/settings.component';
 import { RecipeDetailsComponent } from './recipe-details/recipe-details.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { ProfileComponent } from './profile/profile.component';
+import { RecipeCardComponent } from './recipe-card/recipe-card.component';
+
 
 @NgModule({
   declarations: [
@@ -43,6 +45,7 @@ import { ProfileComponent } from './profile/profile.component';
     RecipeDetailsComponent,
     SearchResultsComponent,
     ProfileComponent,
+    RecipeCardComponent,
   ],
   imports: [
     BrowserModule,
