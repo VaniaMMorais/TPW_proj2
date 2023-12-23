@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,8 +12,9 @@ import { first } from 'rxjs/operators';
 })
 export class LoginComponent implements OnInit{
   myform: FormGroup;
+  errorMessage: string | undefined;
   
-  constructor(private authService: AuthService){
+  constructor(private authService: AuthService, private router: Router){
     this.myform = new FormGroup({
       username: new FormControl(''),
       password: new FormControl('')
@@ -36,36 +38,14 @@ export class LoginComponent implements OnInit{
       .subscribe(
         data => {
           console.log(data);
+          this.router.navigate(['/home']);
         },
         error => {
           console.error('Erro de autenticação:', error);
-          // Verifique se o erro é relacionado a nome de usuário ou senha incorretos
-          if (error && error.status === 400) {
-            // Erro 400 geralmente indica credenciais inválidas
-            console.log('Nome de usuário ou senha incorretos.');
-          } else {
-            // Trate outros tipos de erros, se necessário
-            console.error('Erro não tratado:', error);
-          }
+          this.errorMessage = "UserName or Password not valid";
         }
       );
   }
 
 
-
-  // username: string;
-  // password: string;
-
-  // constructor(private authService: AuthService, private router: Router) {
-  //   this.username = '';
-  //   this.password = '';
-  // }
-
-  // onLogin() {
-  //   console.log("username:", this.username);
-  //   console.log("password:", this.password);
-  //   this.authService.login(this.username, this.password);
-  //   console.log("FEITO")
-  //   this.router.navigate(['/home']);
-  // }
 }

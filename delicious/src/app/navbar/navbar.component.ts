@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { faMagnifyingGlass, faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
 import { faStar as emptyStar } from '@fortawesome/free-regular-svg-icons';
 import { AuthService } from '../auth.service';
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit{
   solidStar = solidStar;
   emptyStar = emptyStar;
   animationState = 'fadeInUp';
@@ -19,12 +19,21 @@ export class NavbarComponent {
   isLoggedIn: boolean;
   isAdmin: boolean;
   isProfileDropdownOpen: boolean = false;
+  welcomeMessage: string | undefined;
 
   
 
   constructor(private authService: AuthService, private el: ElementRef,private router: Router) {
     this.isLoggedIn = this.authService.getIsLoggedIn();
     this.isAdmin = this.authService.getRole() === 'admin';
+  }
+
+  ngOnInit(): void {
+    if(this.isLoggedIn){
+      const currentUser = this.authService.getCurrentUser();
+      this.welcomeMessage = `Bem-vindo, ${currentUser.first_name} ${currentUser.last_name}!`;
+      console.log(this.authService.getRole())
+    }
   }
 
   onLogout() {

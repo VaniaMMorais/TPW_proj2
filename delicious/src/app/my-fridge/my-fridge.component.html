@@ -1,2 +1,18 @@
 <app-navbar></app-navbar>
-<p>my-fridge works!</p>
+<h2 class="text-2xl font-bold mb-4">Itens na Geladeira</h2>
+
+<div *ngFor="let item of fridgeItems" class="mb-4">
+  <div class="bg-white p-4 shadow-md rounded-md">
+    <p class="text-lg font-semibold mb-2">{{ item.ingredientDetails.nome }}</p>
+    <p><strong>Calorias:</strong> {{ item.ingredientDetails.calorias }}</p>
+    <p><strong>Categoria:</strong> {{ item.ingredientDetails.categoria.nome }}</p>
+    <p><strong>Data:</strong> {{ item.data }}</p>
+    <!-- Adicione mais campos conforme necessário -->
+
+    <!-- Botão de Delete -->
+    <!-- <button (click)="onDelete(item.pk)" class="mt-2 bg-red-500 text-white px-4 py-2 rounded-md">
+      Excluir
+    </button> -->
+  </div>
+</div>
+

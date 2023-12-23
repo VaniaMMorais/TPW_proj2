@@ -32,6 +32,13 @@ export class AuthService {
           // const user = response.body;
           if(user && user.token){
             localStorage.setItem("currentUser", JSON.stringify(user));
+            this.isLoggedIn = true;
+            if(user.username == "mariana"){
+              this.role = 'admin'
+            }
+            else{
+              this.role = 'user'
+            }
           }
           return user;
         })
@@ -40,6 +47,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem("currentUser")
+    location.reload()
   }
 
   getIsLoggedIn(): boolean {
@@ -48,6 +56,11 @@ export class AuthService {
 
   getRole(): string | null {
     return this.role;
+  }
+
+  getCurrentUser(): any {
+    const currentUserString = localStorage.getItem('currentUser');
+    return currentUserString ? JSON.parse(currentUserString) : null;
   }
 }
 

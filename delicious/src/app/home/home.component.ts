@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit{
 
   recipes: any;
   user: any;
+  welcomeMessage: string | undefined;
   
 
   constructor(private authService: AuthService, private myApiService: MyApiService, private router: Router) {
@@ -29,6 +30,7 @@ export class HomeComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    
     this.myApiService.getRecipesData().subscribe(
       (data: any) => {
         this.recipes = data;
@@ -39,18 +41,6 @@ export class HomeComponent implements OnInit{
         console.error('Error fetching data:', error);
       }
     );
-
-    // if(this.isLoggedIn){
-    //   this.myApiService.getUser().subscribe(
-    //     (data: any) => {
-    //       this.user = data;
-    //       console.log(data);
-    //     },
-    //     (error: any) => {
-    //       console.error('Error fetching user:', error);
-    //     }
-    //   );
-    // }
 
   }
 
