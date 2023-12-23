@@ -41,6 +41,10 @@ export class MyApiService {
     return this.http.get(this.baseApiUrl + '/categoria-ingredientes/')
   }
 
+  getFavorites(): Observable<any>{
+    return this.http.get(this.baseApiUrl + '/frigorificos/')
+  }
+
   createIngredient(ingredientData: any): Observable<any> {
     return this.http.post(this.baseApiUrl + '/criarIngrediente/', ingredientData).pipe(
       map((response: any) => response.id)
@@ -65,6 +69,10 @@ export class MyApiService {
 
   deleteFridge(id:number): Observable<any>{
     return this.http.delete(this.baseApiUrl + '/remove_frigorifico/' + id)
+  }
+
+  deleteRecipe(id:number): Observable<any>{
+    return this.http.delete(this.baseApiUrl + '/delete_receita/' + id)
   }
 
   login(header: any): Observable<any> {

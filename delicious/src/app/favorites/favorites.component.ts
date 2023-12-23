@@ -8,4 +8,12 @@ import { Component } from '@angular/core';
 export class FavoritesComponent {
   recipes: any;
   user: any;
+
+  constructor(){
+
+  }
+
+  ngOnInit(): void{
+    
+  }
 }

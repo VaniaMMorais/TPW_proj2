@@ -34,7 +34,6 @@ export class HomeComponent implements OnInit{
     this.myApiService.getRecipesData().subscribe(
       (data: any) => {
         this.recipes = data;
-        this.recipes = this.recipes.reverse();
         console.log(data);
       },
       (error: any) => {

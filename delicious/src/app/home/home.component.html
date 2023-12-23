@@ -6,8 +6,8 @@
         <hr>
         <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 xl:gap-x-8">
             <!-- Iterar sobre receitas -->
-            <div *ngFor="let recipe of recipes; let i = index" class="group relative">
-                <app-recipe-card [recipe]="recipe" [recipeId]="i+1"></app-recipe-card>
+            <div *ngFor="let recipe of recipes" class="group relative">
+                <app-recipe-card [recipe]="recipe" [recipeId]="recipe.id"></app-recipe-card>
             </div>
         </div>
     </div>
