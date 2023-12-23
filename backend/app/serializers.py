@@ -52,40 +52,41 @@ class CategoriaSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ReceitaIngredienteSerializer(serializers.ModelSerializer):
-    ingrediente_nome = serializers.SerializerMethodField()  # Adicionando um campo para o nome do ingrediente
+    ingrediente = IngredienteSerializer()
 
     class Meta:
         model = ReceitaIngrediente
         fields = '__all__'
 
-    def get_ingrediente_nome(self, obj):
-        return obj.nome  # Obtendo o nome do ingrediente
-
-
 class ReceitaSerializer(serializers.ModelSerializer):
     category = CategoriaSerializer()
-    ingredients = ReceitaIngredienteSerializer(many=True, read_only=True)  # Alteração aqui
+    ingredients = ReceitaIngredienteSerializer(many=True)
     imagem = serializers.ImageField(allow_null=True, required=False)
 
     class Meta:
         model = Receita
-        fields = ('id','user', 'category', 'name', 'description', 'tempoPreparacao', 'tempoCozinhar', 'quantidadePessoas', 'nivel', 'imagem', 'ingredients', 'updated', 'created')
+        fields = '__all__'
 
     def create(self, validated_data):
         category_data = validated_data.pop('category')
-        category_instance = Categoria.objects.create(**category_data)
-        ingredients_data = validated_data.pop('ingredients') if 'ingredients' in validated_data else None
+        category_instance, _ = Categoria.objects.get_or_create(**category_data)
+
+        ingredients_data = validated_data.pop('ingredients', [])
+        ingredients_instance = []
+
+        for ingrediente_data in ingredients_data:
+            ingrediente_serializer = ReceitaIngredienteSerializer(data=ingrediente_data)
+            if ingrediente_serializer.is_valid():
+                ingrediente_instance = ingrediente_serializer.save()
+                ingredients_instance.append(ingrediente_instance)
+            else:
+                raise serializers.ValidationError(ingrediente_serializer.errors)
 
         receita_instance = Receita.objects.create(category=category_instance, **validated_data)
 
         # Adiciona os ingredientes à receita
-        if ingredients_data:
-            for ingrediente_data in ingredients_data:
-                ingrediente_serializer = ReceitaIngredienteSerializer(data=ingrediente_data)
-                if ingrediente_serializer.is_valid():
-                    ingrediente_serializer.save(receita=receita_instance)
-                else:
-                    raise serializers.ValidationError(ingrediente_serializer.errors)
+        for ingrediente_instance in ingredients_instance:
+            receita_instance.ingredients.add(ingrediente_instance)
 
         return receita_instance
 

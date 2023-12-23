@@ -48,6 +48,14 @@ from unidecode import unidecode
 import re
 import base64
 
+from django.http import JsonResponse
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Receita, Categoria, Ingrediente, ReceitaIngrediente
+from .serializers import ReceitaSerializer, CategoriaSerializer, IngredienteSerializer, ReceitaIngredienteSerializer
+from django.utils.text import slugify
+
 
 #utilizadores
 from django.contrib.auth import login, authenticate, logout
@@ -231,27 +239,42 @@ def delete_categoria(request, pk):
     
 @api_view(['POST'])
 def create_receita(request):
-    # Parse o JSON manualmente para obter a categoria
-    data = JSONParser().parse(request)
-    categoria_id = data.get('category')
+    data = request.data
 
-    # Verifica se a categoria existe
-    try:
-        categoria = Categoria.objects.get(pk=categoria_id)
-    except Categoria.DoesNotExist:
-        return Response({'category': ['Categoria não encontrada.']}, status=status.HTTP_400_BAD_REQUEST)
+    # Serializa a categoria
+    categoria_serializer = CategoriaSerializer(data=data['category'])
+    if categoria_serializer.is_valid():
+        categoria_instance, _ = Categoria.objects.get_or_create(**data['category'])
+    else:
+        return JsonResponse({'category': categoria_serializer.errors}, status=400)
 
-    # Adiciona a categoria ao dicionário de dados
-    data['category'] = categoria_id
+    # Serializa os ingredientes
+    ingredientes_serializer = ReceitaIngredienteSerializer(data=data['ingredients'], many=True)
+    if ingredientes_serializer.is_valid():
+        ingredientes_instance = ingredientes_serializer.save()
+    else:
+        return JsonResponse({'ingredients': ingredientes_serializer.errors}, status=400)
+
+    # Remove a categoria e os ingredientes do dicionário de dados antes de criar a Receita
+    data.pop('category')
+    data.pop('ingredients')
+
+    # Adiciona a categoria à Receita
+    data['category'] = categoria_instance.id
 
     # Cria o serializer com os dados ajustados
     serializer = ReceitaSerializer(data=data)
 
     if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        receita_instance = serializer.save()
 
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # Adiciona os ingredientes à Receita
+        for ingrediente_instance in ingredientes_instance:
+            receita_instance.ingredients.add(ingrediente_instance)
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -312,7 +335,7 @@ def update_receita(request, id):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     # Atualiza os campos da receita com os dados da requisição
-    receita.id
+    receita.id   = request.data.get('id', receita.id)
     receita.user = request.data.get('user', receita.user)
     receita.category = request.data.get('category', receita.category)
     receita.name = request.data.get('name', receita.name)
