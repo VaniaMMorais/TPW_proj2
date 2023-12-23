@@ -13,3 +13,6 @@ pip install Unidecode
 
 ## Como correr 
 python3 manage.py runserver
+
+
+Na versão deployed não está a ser possível dar login, por isso, de modo a conseguir ter uma experiencia completa, deixei os links base da API locais.

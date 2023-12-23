@@ -16,3 +16,22 @@ ng add @angular/material
 ## Como correr 
 npm start ou ng serve
 ng build ou npm install
+
+Na versão deployed não está a ser possível dar login, por isso, de modo a conseguir ter uma experiencia completa, deixei os links base da API locais.
+
+
+# TPW_proj2
+
+
+1. Client-Side - proj2tpw.pythonanywhere.com
+
+2. Server-Side - para correr deve entrar no repositório /delicious e fazer o comando “npm install”, de seguida correr “ng build” e “ng serve”.
+
+
+### Utilizador normal
+username - vania
+password - vanines05
+
+### Admin
+username - mariana
+password - 1234
