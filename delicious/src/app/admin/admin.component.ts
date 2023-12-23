@@ -118,6 +118,9 @@ export class AdminComponent implements OnInit {
       (response)=> {
         console.log('Categoria eliminada com sucesso')
         this.reloadPage();
+      },
+      (error: any) => {
+        console.error(error);
       }
     );
   }

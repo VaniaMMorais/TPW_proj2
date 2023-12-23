@@ -26,6 +26,7 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 import { ProfileComponent } from './profile/profile.component';
 import { RecipeCardComponent } from './recipe-card/recipe-card.component';
 import { initializeApp } from 'firebase/app';
+import { RecipeAddComponent } from './recipe-add/recipe-add.component';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { initializeApp } from 'firebase/app';
     SearchResultsComponent,
     ProfileComponent,
     RecipeCardComponent,
+    RecipeAddComponent,
   ],
   imports: [
     BrowserModule,

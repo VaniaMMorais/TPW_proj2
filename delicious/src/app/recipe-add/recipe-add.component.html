@@ -1,0 +1,47 @@
+<div class="recipe-add-form bg-white p-6 rounded-md shadow-md">
+    <h2 class="text-2xl font-bold mb-4">Adicionar Receita</h2>
+  
+    <form [formGroup]="myForm" (ngSubmit)="submitForm()">
+      <!-- User (hidden input) -->
+      <input type="hidden" formControlName="user">
+  
+      <!-- Category Dropdown -->
+      <div class="mb-4">
+        <label for="category" class="block text-sm font-bold text-gray-700 mb-2">Categoria:</label>
+        <select formControlName="category" id="category" class="w-full p-2 border rounded">
+          <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+        </select>
+        <div *ngIf="myForm.get('category')?.hasError('required')" class="text-red-500 text-sm mt-1">Categoria é obrigatória</div>
+      </div>
+  
+      <!-- Name -->
+      <div class="mb-4">
+        <label for="name" class="block text-sm font-bold text-gray-700 mb-2">Nome:</label>
+        <input type="text" formControlName="name" id="name" class="w-full p-2 border rounded">
+        <div *ngIf="myForm.get('name')?.hasError('required')" class="text-red-500 text-sm mt-1">Nome é obrigatório</div>
+      </div>
+  
+      <!-- Description -->
+      <div class="mb-4">
+        <label for="description" class="block text-sm font-bold text-gray-700 mb-2">Descrição:</label>
+        <textarea formControlName="description" id="description" class="w-full p-2 border rounded"></textarea>
+        <div *ngIf="myForm.get('description')?.hasError('required')" class="text-red-500 text-sm mt-1">Descrição é obrigatória</div>
+      </div>
+  
+      <!-- Tempo de Preparação -->
+      <!-- Adicione os campos adicionais de forma semelhante -->
+  
+      <!-- Ingredients Dropdown -->
+      <div class="mb-4">
+        <label for="ingredients" class="block text-sm font-bold text-gray-700 mb-2">Ingredientes:</label>
+        <select formControlName="ingredients" id="ingredients" class="w-full p-2 border rounded">
+          <option *ngFor="let ingredient of ingredientes" [value]="ingredient.id">{{ ingredient.igrediente_nome }}</option>
+        </select>
+        <div *ngIf="myForm.get('ingredients')?.hasError('required')" class="text-red-500 text-sm mt-1">Ingredientes são obrigatórios</div>
+      </div>
+  
+      <!-- Botão de Submissão -->
+      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Adicionar Receita</button>
+    </form>
+  </div>
+  

@@ -42,13 +42,17 @@ export class MyApiService {
   }
 
   getFavorites(): Observable<any>{
-    return this.http.get(this.baseApiUrl + '/frigorificos/')
+    return this.http.get(this.baseApiUrl + '/favoritos/')
   }
 
   createIngredient(ingredientData: any): Observable<any> {
     return this.http.post(this.baseApiUrl + '/criarIngrediente/', ingredientData).pipe(
       map((response: any) => response.id)
     );
+  }
+
+  createRecipe(recipeData: any): Observable<any>{
+    return this.http.post(this.baseApiUrl +'/criarReceita/', recipeData)
   }
 
   createCategory(categoryData: any): Observable<any> {
@@ -59,12 +63,16 @@ export class MyApiService {
     return this.http.post(this.baseApiUrl+ '/add_frigorifico/', fridgeData)
   }
 
+  addFavorite(favoriteData:any): Observable<any>{
+    return this.http.post(this.baseApiUrl + '/add_favoritos/', favoriteData)
+  }
+
   deleteIngredient(id: number): Observable<any>{
     return this.http.delete(this.baseApiUrl + '/delete_ingrediente/' + id)
   }
 
   deleteCategory(id:number): Observable<any>{
-    return this.http.delete(this.baseApiUrl + '/categorias/' + id)
+    return this.http.delete(this.baseApiUrl + '/delete_categoria-ingredientes/' + id)
   }
 
   deleteFridge(id:number): Observable<any>{
@@ -73,6 +81,10 @@ export class MyApiService {
 
   deleteRecipe(id:number): Observable<any>{
     return this.http.delete(this.baseApiUrl + '/delete_receita/' + id)
+  }
+
+  deleteFavorite(id:number): Observable<any>{
+    return this.http.delete(this.baseApiUrl + '/remove_favoritos/' + id)
   }
 
   login(header: any): Observable<any> {
@@ -87,5 +99,6 @@ export class MyApiService {
   getFridgeData(): Observable<any>{
     return this.http.get(this.baseApiUrl + '/frigorificos')
   }
+
 
 }
