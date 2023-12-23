@@ -20,15 +20,7 @@ from django.urls import path
 from app import views
 
 from django.urls import path, include
-from app.views import ingredientes,create_ingredient,get_ingredient_detail,update_ingredient,delete_ingredient
-from app.views import create_receita,receitas,receita_detail
-from app.views import avaliacao_detail,avaliacoes,categorias
-from app.views import categoria_ingrediente_detail,all_categoria_ingredientes,create_categoria_ingrediente,edit_categoria_ingrediente,delete_categoria_ingrediente
-from app.views import receita_ingredientes,receita_ingrediente_detail
-from app.views import frigorificos,frigorifico_detail
-from app.views import favoritos,favoritos_detail
-from app.views import listas_compras,lista_compras_detail
-from app.views import ReceitaFilterAPIView
+
 
 
 urlpatterns = [
@@ -37,20 +29,27 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
 
-    # ingredientes
+    # ingredientes (tudo funcional no postman)
     path('ingredientes/', views.ingredientes),
     path('criarIngrediente/', views.create_ingredient),
     path('ingredientes/<int:id>', views.get_ingredient_detail),
     path('update_ingrediente/<int:id>', views.update_ingredient),
     path('delete_ingrediente/<int:id>', views.delete_ingredient),
 
+    # receitas (só nao funciona criar e update  no postman pq no admin funcionam todos)
     path('receitas/', views.receitas),
     path('criarReceita/', views.create_receita),
-    path('receitas/<int:id>', views.receita_detail),
-    path('receitas/filtradas/', ReceitaFilterAPIView.as_view()),
+    path('detail_receita/<int:id>', views.receita_detail),
+    path('update_receita/<int:id>', views.update_receita),
+    path('delete_receita/<int:id>', views.delete_receita),
+    path('receitas_filtradas/', views.filtrar_receitas),
 
+    # categorias das receitas
     path('categorias/', views.categorias),
+    path('criarCategoria/', views.create_categoria),
     path('categorias/<int:pk>/', views.categoria_detail),
+    path('categorias/<int:pk>/', views.edit_categoria),
+    path('categorias/<int:pk>/', views.delete_categoria),
 
     # categorias dos ingredientes
     path('categoria-ingredientes/', views.all_categoria_ingredientes),
@@ -59,25 +58,37 @@ urlpatterns = [
     path('edit_categoria-ingredientes/<int:pk>/', views.edit_categoria_ingrediente),
     path('delete_categoria-ingredientes/<int:pk>/', views.delete_categoria_ingrediente),
 
+
     path('receita_ingredientes/', views.receita_ingredientes),
-    path('receita_ingredientes/<int:pk>/', views.receita_ingrediente_detail),
+    path('create_receita_ingredientes/', views.create_receita_ingredientes),
+    path('detail_receita_ingredientes/<int:pk>/', views.detail_receita_ingredientes),
+    path('update_receita_ingredientes/<int:pk>/', views.update_receita_ingredientes),
+    path('delete_receita_ingredientes/<int:pk>/', views.delete_receita_ingredientes),
 
     # FUNCIONAM CORRETAMENTE (testei no postman)
-    path('avaliacoes/', avaliacoes),
-    path('avaliacoes/<int:pk>/', avaliacao_detail),
+    path('avaliacoes/', views.avaliacoes),
+    path('criarAvaliacao/', views.create_avaliacoes),
+    path('detail_avaliacoes/<int:pk>/', views.avaliacao_detail),
+    path('update_avaliacoes/<int:pk>/', views.update_avaliacao),
+    path('remove_avaliacoes/<int:pk>/', views.delete_avaliacao),
     
     # FUNCIONAM CORRETAMENTE (testei no postman)
-    path('frigorificos/', frigorificos),
-    path('frigorificos/<int:pk>/', frigorifico_detail),
+    path('frigorificos/', views.frigorificos),
+    path('add_frigorifico/', views.create_frigorifico),
+    path('detail_frigorifico/<int:pk>/', views.frigorifico_detail),
+    path('remove_frigorifico/<int:pk>/', views.delete_frigorifico),
 
-    path('favoritos/', favoritos),
-    path('favoritos/<int:pk>/', favoritos_detail),
+    path('favoritos/', views.favoritos),
+    path('add_favoritos/', views.create_favoritos),
+    path('detail_favoritos/<int:pk>/', views.favoritos_detail),
+    path('remove_favoritos/<int:pk>/', views.delete_favoritos),
 
-    path('listas_compras/', listas_compras),
-    path('listas_compras/<int:pk>/', lista_compras_detail),
-
-
+    path('listas_compras/', views.listas_compras),
+    path('add_lista_compras/', views.create_listas_compras),
+    path('listas_compras/<int:pk>/', views.lista_compras_detail),
+    path('remove_lista_compras/<int:pk>/', views.delete_lista_compras),
 
     path('', include('app.urls')),
     
 ]
+
