@@ -262,6 +262,7 @@ def receitas(request):
 
     for receita in receitas:
         receita_data = {
+            'id': receita.id,
             'user': receita.user.username if receita.user else '',
             'category': receita.category.name if receita.category else '',
             'name': receita.name,
@@ -287,6 +288,7 @@ def receita_detail(request, id):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     receita_data = {
+        'id': receita.id,
         'user': receita.user.username if receita.user else '',
         'category': receita.category.name if receita.category else '',
         'name': receita.name,
@@ -310,6 +312,7 @@ def update_receita(request, id):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     # Atualiza os campos da receita com os dados da requisição
+    receita.id
     receita.user = request.data.get('user', receita.user)
     receita.category = request.data.get('category', receita.category)
     receita.name = request.data.get('name', receita.name)
@@ -324,6 +327,7 @@ def update_receita(request, id):
 
     # Retorna os dados da receita atualizados
     receita_data = {
+        'id': receita.id,
         'user': receita.user.username if receita.user else '',
         'category': receita.category.name if receita.category else '',
         'name': receita.name,
