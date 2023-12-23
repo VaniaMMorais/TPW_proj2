@@ -6,13 +6,26 @@
     <p class="text-lg font-semibold mb-2">{{ item.ingredientDetails.nome }}</p>
     <p><strong>Calorias:</strong> {{ item.ingredientDetails.calorias }}</p>
     <p><strong>Categoria:</strong> {{ item.ingredientDetails.categoria.nome }}</p>
-    <p><strong>Data:</strong> {{ item.data }}</p>
     <!-- Adicione mais campos conforme necessário -->
 
     <!-- Botão de Delete -->
-    <!-- <button (click)="onDelete(item.id)" class="mt-2 bg-red-500 text-white px-4 py-2 rounded-md">
+    <button (click)="onDelete(item.id)" class="mt-2 bg-red-500 text-white px-4 py-2 rounded-md">
       Excluir
-    </button> -->
+    </button>
   </div>
 </div>
+
+<hr>
+<h2>Criar Novo Frigorífico</h2>
+
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <div>
+        <label for="ingredient">Ingrediente</label>
+        <select formControlName="ingredient">
+          <option *ngFor="let ingrediente of ingredientes" [value]="ingrediente.id">{{ ingrediente.nome }}</option>
+        </select>
+    </div>
+  <button type="submit">Criar Frigorífico</button>
+</form>
+
 

@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrl: './favorites.component.css'
 })
 export class FavoritesComponent {
-
+  recipes: any;
+  user: any;
 }
