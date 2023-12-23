@@ -2,7 +2,7 @@
 <div class="recipe-details max-w-2xl mx-auto mt-10 p-6 bg-white rounded-md shadow-md">
     <h1 class="text-3xl font-semibold mb-4">{{ recipedetails.name }}</h1>
     <p class="recipe-meta text-gray-600">
-      <span class="mr-4">Category: {{ category ? category.name : 'undefined' }}</span>
+      <span class="mr-4">Category: {{ recipedetails.category }}</span>
       <span class="mr-4">Level: {{ recipedetails.nivel }}</span>
       <span class="mr-4">Servings: {{ recipedetails.quantidadePessoas }}</span>
       <span class="mr-4">Preparation Time: {{ recipedetails.tempoPreparacao }} minutes</span>

@@ -6,8 +6,8 @@ import { Observable, map } from 'rxjs';
   providedIn: 'root'
 })
 export class MyApiService {
-  // private baseApiUrl = 'http://127.0.0.1:8000';
-  private baseApiUrl = 'http://proj2tpw.pythonanywhere.com';
+  private baseApiUrl = 'http://127.0.0.1:8000';
+  // private baseApiUrl = 'http://proj2tpw.pythonanywhere.com';
   constructor(private http: HttpClient) { }
 
   getIngredientsData(): Observable<any> {
@@ -23,7 +23,7 @@ export class MyApiService {
   }
 
   getRecipesByIdData(id:any): Observable<any>{
-    return this.http.get(this.baseApiUrl + '/receitas/'+id)
+    return this.http.get(this.baseApiUrl + '/detail_receita/'+id)
   }
 
   getCategoriesByIdData(id:number): Observable<any>{
@@ -44,11 +44,11 @@ export class MyApiService {
   }
 
   createCategory(categoryData: any): Observable<any> {
-    return this.http.post(this.baseApiUrl +'/categorias/', categoryData);
+    return this.http.post(this.baseApiUrl +'/criarCategoria/', categoryData);
   }
 
   deleteIngredient(id: number): Observable<any>{
-    return this.http.delete(this.baseApiUrl + '/ingredientes/' + id)
+    return this.http.delete(this.baseApiUrl + '/delete_ingrediente/' + id)
   }
 
   deleteCategory(id:number): Observable<any>{

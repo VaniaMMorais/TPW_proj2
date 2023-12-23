@@ -11,7 +11,7 @@
               </div>
               <div>
                 <span class="text-green-500">Category: {{ food.categoria || 'Uncategorized' }}</span>
-                <button class="text-red-500" (click)="deleteIngredient(i+1)">Delete</button>
+                <button class="text-red-500" (click)="deleteIngredient(food.id)">Delete</button>
               </div>
             </div>
           </li>

@@ -12,7 +12,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AboutUSComponent } from './about-us/about-us.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AdminComponent } from './admin/admin.component';
@@ -23,6 +23,7 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { SettingsComponent } from './settings/settings.component';
 import { RecipeDetailsComponent } from './recipe-details/recipe-details.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { SearchResultsComponent } from './search-results/search-results.componen
     SettingsComponent,
     RecipeDetailsComponent,
     SearchResultsComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +50,7 @@ import { SearchResultsComponent } from './search-results/search-results.componen
     FontAwesomeModule,
     RouterModule.forRoot([]),
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
   //   HttpClientXsrfModule.withOptions({
   //     cookieName: 'csrftoken',

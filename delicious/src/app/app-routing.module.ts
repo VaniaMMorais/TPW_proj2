@@ -13,6 +13,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { RecipeDetailsComponent } from './recipe-details/recipe-details.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -27,7 +28,8 @@ const routes: Routes = [
   {path: 'settings', component: SettingsComponent},
   {path: 'favorites', component: FavoritesComponent},
   {path: 'recipeDetails/:id', component: RecipeDetailsComponent},
-  {path: 'searchResults', component: SearchResultsComponent}
+  {path: 'searchResults', component: SearchResultsComponent},
+  {path: 'profile', component:ProfileComponent}
 ];
 
 @NgModule({

@@ -1,8 +1,14 @@
 import { Injectable } from '@angular/core';
 import { MyApiService } from './my-api.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Observable, map } from 'rxjs';
 
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+  }),
+};
 
 @Injectable({
   providedIn: 'root'
@@ -10,26 +16,30 @@ import { Observable } from 'rxjs';
 export class AuthService {
   private isLoggedIn = false;
   private role: string | null = null;
-  // private apiUrl = 'http://127.0.0.1:8000/api-auth/login/';
-  private apiUrl = 'http://proj2tpw.pythonanywhere.com/api-auth/login/';
+  private apiUrl = 'http://127.0.0.1:8000';
+  // private apiUrl = 'http://proj2tpw.pythonanywhere.com/api-auth/login/';
+
+  
+
   constructor(private myApiService: MyApiService, private http: HttpClient) {}
 
   // 
   login(username: string, password: string) {
-    const body = { username, password };
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-    this.http.post(this.apiUrl, body, { headers, withCredentials: true }).subscribe(
-      (response)=>{
-        console.log(response)
-      }
-    );
+
+    return this.http.post<any>(this.apiUrl + '/api/auth/',
+      {username, password}, httpOptions).pipe(
+        map(user => {
+          // const user = response.body;
+          if(user && user.token){
+            localStorage.setItem("currentUser", JSON.stringify(user));
+          }
+          return user;
+        })
+      );
   }
 
   logout() {
-    this.isLoggedIn = false;
-    this.role = null;
+    localStorage.removeItem("currentUser")
   }
 
   getIsLoggedIn(): boolean {
@@ -40,3 +50,5 @@ export class AuthService {
     return this.role;
   }
 }
+
+

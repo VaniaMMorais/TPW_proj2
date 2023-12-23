@@ -27,8 +27,6 @@ export class RecipeDetailsComponent {
           this.recipedetails = data;
           console.log(data);
 
-          // Agora que você tem os detalhes da receita, busque a categoria associada
-          this.getCategory(this.recipedetails.category);
         },
         (error: any) => {
           console.error('Error fetching data:', error);
@@ -48,15 +46,5 @@ export class RecipeDetailsComponent {
     });
   }
 
-  getCategory(categoryId: number) {
-    this.myApiService.getCategoriesByIdData(categoryId).subscribe(
-      (data: any) => {
-        this.category = data;
-        console.log(data);
-      },
-      (error: any) => {
-        console.error('Error fetching category:', error);
-      }
-    );
-  }
+
 }

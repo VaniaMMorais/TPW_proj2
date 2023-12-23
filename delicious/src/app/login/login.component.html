@@ -1,4 +1,4 @@
-<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+<!-- <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <img class="mx-auto h-10 w-auto" src="./assets/logo.png" alt="Your Company">
       <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign in to your account</h2>
@@ -28,4 +28,22 @@
         <a routerLink="/register" class="font-semibold leading-6 text-green-600 hover:text-green-500">Register</a>
       </p>
     </div>
+  </div> -->
+
+
+
+
+<h1>Login Form</h1>
+
+<form [formGroup]="myform" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="username">Username</label>
+    <input type="text" formControlName="username">
   </div>
+  <div>
+    <label for="password">Password</label>
+    <input type="password" formControlName="password">
+  </div>
+  <button type="submit">Login</button>
+  
+</form>
